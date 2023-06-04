@@ -50,6 +50,7 @@ class Feature:
             # Compute F0 feature
             result.append(F0(file_name=self.file_name, signal=self.signal,sample_rate=self.sample_rate).extract())
 
+        return np.concatenate(result)
         # features = np.concatenate(result)
         features = pd.Series(np.concatenate(result))
         # X_features = X_features.loc[:, ~(X_features.isna().any() | np.isinf(X_features).any() )]

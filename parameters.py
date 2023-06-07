@@ -1,7 +1,7 @@
 import pandas as pd
 emotions = [
     'angry',
-    'calm',
+    # 'calm',
     'disgust',
     'fear',
     'happy',
@@ -15,10 +15,10 @@ emotions = [
 one_hot_encode = pd.get_dummies(emotions)
 
 features = [
-    # 'MFCC',
+    'MFCC',
     # 'SSC' ,
     # 'Chroma', 
-    'MelSpectrogram',
+    # 'MelSpectrogram',
     # 'Contrast',
     # 'Tonnetz',
     # 'F0',

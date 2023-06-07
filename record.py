@@ -2,11 +2,13 @@ import pyaudio
 import wave
 
 # Define the audio recording parameters
-FORMAT = pyaudio.paInt16
+# FORMAT = pyaudio.paInt16
+FORMAT = pyaudio.paFloat32
 CHANNELS = 1
-RATE = 44100
+# RATE = 44100
+RATE = 22050
 CHUNK = 1024
-RECORD_SECONDS = 5
+RECORD_SECONDS = 2
 
 # Create a new PyAudio object
 audio = pyaudio.PyAudio()

@@ -15,8 +15,8 @@ sys.path.insert(0, os.getcwd())
 sys.path.insert(0, os.getcwd()+"\modules\ClassifiersManagement")
 from modules.ClassifiersManagement.SVCClassifier import get_classifier,predict
 # from modules.ClassifiersManagement.GradientBoostingClassifier import get_classifier,predict
-sys.path.insert(0, os.getcwd()+"\modules\FeatuersManagement")
-# from modules.FeatuersManagement.Feature import Feature
+sys.path.insert(0, os.getcwd()+"\modules\FeaturesManagement")
+# from modules.FeaturesManagement.Feature import Feature
 
 
 # Function to convert ogg to wav

@@ -1,11 +1,11 @@
 from sklearn.ensemble import BaggingClassifier  as Classifier
 import pickle
-import modules.ClassifiersManagement.helper as classifierHelper
 from sklearn.model_selection import train_test_split
 import sys
 import os
 sys.path.insert(0, os.getcwd())
 import parameters as para
+import modules.ClassifiersManagement.helper as classifierHelper
 sys.path.insert(0, os.getcwd()+"\modules\FeaturesManagement")
 from modules.FeaturesManagement.main import extract_feature_emotion_X_y_array
 

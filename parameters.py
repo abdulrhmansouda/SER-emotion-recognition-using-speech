@@ -1,4 +1,23 @@
 import pandas as pd
+from modules.ClassifiersManagement.AdaBoostClassifier import AdaBoostClassifier
+from modules.ClassifiersManagement.BaggingClassifier import BaggingClassifier 
+from modules.ClassifiersManagement.GradientBoostingClassifier import GradientBoostingClassifier
+from modules.ClassifiersManagement.KNeighborsClassifier import KNeighborsClassifier
+from modules.ClassifiersManagement.MLPClassifier import MLPClassifier
+from modules.ClassifiersManagement.RandomForestClassifier import RandomForestClassifier
+from modules.ClassifiersManagement.SVCClassifier import SVCClassifier
+
+
+classifiers = [
+# AdaBoostClassifier,
+# BaggingClassifier,
+# GradientBoostingClassifier,
+# KNeighborsClassifier,
+# MLPClassifier,
+# RandomForestClassifier,
+SVCClassifier,
+]
+
 emotions = [
     'angry',
     # 'calm',
@@ -15,13 +34,13 @@ emotions = [
 one_hot_encode = pd.get_dummies(emotions)
 
 features = [
-    'MFCC',
+    # 'MFCC',
     # 'SSC' ,
     # 'Chroma', 
     # 'MelSpectrogram',
     # 'Contrast',
     # 'Tonnetz',
-    # 'F0',
+    'F0',
 ]
 
 datasets = [

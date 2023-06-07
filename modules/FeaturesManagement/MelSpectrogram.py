@@ -36,42 +36,18 @@ class MelSpectrogram:
     
 
     def extract_feature(file_name):
-        # self.file_name = file_name
         signal, sample_rate = librosa.load(file_name)
-        # stft = np.abs(librosa.stft(signal))
-        # if 'Chroma' in para.features or 'Contrast' in para.features or 'Tonnetz' in para.features:
-        #     self.stft = np.abs(librosa.stft(self.signal))
 
         result = []
-        # if 'MFCC' in para.features:
-        #     # Compute MFCC
-        #     result.append(MFCC(file_name=file_name, signal=signal,sample_rate=sample_rate).extract())
-        # if 'SSC' in para.features:
-        #     # Compute SSC
-        #     result.append(SSC(file_name=file_name, signal=signal,sample_rate=sample_rate).extract())
-        # if 'Chroma' in para.features:
-        #     # Compute chroma feature
-        #     result.append(Chroma(file_name=file_name, signal=signal,stft=stft, sample_rate=sample_rate).extract())
         if 'MelSpectrogram' in para.features:
             # Compute MEL spectrogram feature
             result.append(MelSpectrogram(file_name=file_name, signal=signal,sample_rate=sample_rate).extract())
-        # if 'Contrast' in para.features:
-        #     # Compute spectral contrast feature
-        #     result.append(Contrast(file_name=self.file_name, signal=self.signal,sample_rate=self.sample_rate,stft=self.stft).extract())
-        # if 'Tonnetz' in para.features:
-        #     # Compute tonnetz feature
-        #     result.append(Tonnetz(file_name=self.file_name, signal=self.signal,sample_rate=self.sample_rate,stft=self.stft).extract())
-        # if 'F0' in para.features:
-        #     # Compute F0 feature
-        #     result.append(F0(file_name=self.file_name, signal=self.signal,sample_rate=self.sample_rate).extract())
-
         return np.concatenate(result)
 
 
-    def extract_feature_emotion_X_y_array(filter=True):
+    def extract_feature_emotion_X_y_array():
         feature_emotion_X_y_array_name = featureHelper.get_name_datasets_feature_emotions(feature='MelSpectrogram')
-        # print(feature_emotion_X_y_array_name)
-        # exit()
+
         if os.path.isfile(feature_emotion_X_y_array_name):
             # if file already exists, just load then
             if para.verbose:
@@ -97,10 +73,7 @@ class MelSpectrogram:
             feature_emotion_X_y_array.to_csv(feature_emotion_X_y_array_name)
             feature_emotion_X_y_array = feature_emotion_X_y_array.values
         X = feature_emotion_X_y_array[:,:-1]
-        # if filter == True:
-        #     sys.path.insert(0, os.getcwd()+"\modules\FeatureSelectionManagement")
-        #     from  modules.FeatureSelectionManagement.CatBoostFeatureSelector import CatBoostFeatureSelector 
-        #     X = CatBoostFeatureSelector.filter_features(X)
+
         return {
             "X": X,
             "y": np.concatenate(feature_emotion_X_y_array[:,-1:]),
@@ -108,4 +81,3 @@ class MelSpectrogram:
     
 if __name__ == '__main__':
     MelSpectrogram.extract_feature_emotion_X_y_array()
-    # extract_feature_emotion_X_y_array()

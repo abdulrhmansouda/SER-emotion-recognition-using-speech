@@ -4,11 +4,10 @@ import sys
 sys.path.insert(0, os.getcwd())
 import parameters as para
 sys.path.insert(0, os.getcwd()+"\modules\FeaturesManagement")
-# from modules.FeaturesManagement.main import extract_feature_emotion_X_y_array
 from modules.FeaturesManagement.Feature import Feature
 
 
-def get_special_name(folder_name=para.feature_emotion_X_Y_array_folder_path_name, prefix='', extension=''):
+def get_special_name(folder_name='memory', prefix='', extension=''):
     name = prefix
     for dataset in para.datasets:
         name = name + \
@@ -36,9 +35,6 @@ def confusion_matrix(y_test, y_prediction, classifier_name, title='', normalize=
         display_labels=class_names,
         cmap=plt.cm.Blues,
         normalize=normalize,
-        # normalize='true',
-        # normalize='pred',
-        # normalize='all',
     )
 
     disp.ax_.set_title(title)
@@ -50,36 +46,11 @@ def confusion_matrix(y_test, y_prediction, classifier_name, title='', normalize=
         time.time())+f'_{classifier_name}', extension='.png'), bbox_inches='tight')
 
 
-def predict(path, classifier, sc=None):
-    # from sklearn.model_selection import train_test_split
-    # feature_emotion_X_Y_array = extract_feature_emotion_X_y_array()
-    # X = feature_emotion_X_Y_array['X']
-    # y = feature_emotion_X_Y_array['y']
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = para.test_size, random_state = 0)
-    # from sklearn.preprocessing import StandardScaler
-    # sc = StandardScaler()
-    # X_train = sc.fit_transform(X_train)
-
-    if sc != None:
-        feature = sc.transform(Feature(path).extract_feature().reshape(1, -1))
-    else:
-        # feature = Feature(path).extract_feature().reshape(1, -1)
-        feature = Feature(path).extract_feature().reshape(1, -1)
+def predict(path, classifier):
+    feature = Feature(path).extract_feature().reshape(1, -1)
 
     sys.path.insert(0, os.getcwd()+"\modules\FeatureSelectionManagement")
     from  modules.FeatureSelectionManagement.CatBoostFeatureSelector import CatBoostFeatureSelector 
     feature = CatBoostFeatureSelector.filter_features(feature)
 
-    # return para.emotions[int(classifier.predict(feature)[0])], classifier.predict_proba(feature)
     return para.emotions[int(classifier.predict(feature)[0])]
-    # classifier = get_classifier()
-
-
-
-
-
-    # Feature Scaling
-    # from sklearn.preprocessing import StandardScaler
-    # sc = StandardScaler()
-    # X_train = sc.fit_transform(X_train)
-    # X_test = sc.transform(X_test)

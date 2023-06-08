@@ -42,8 +42,9 @@ def confusion_matrix(y_test, y_prediction, classifier_name, title='', normalize=
     fig1 = plt.gcf()
     plt.show()
     plt.draw()
-    fig1.savefig(get_special_name(folder_name=f'statistics\\{classifier_name}', prefix=str(
-        time.time())+f'_{classifier_name}', extension='.png'), bbox_inches='tight')
+    # fig1.savefig(get_special_name(folder_name=f'statistics\\{classifier_name}', prefix=str(
+    #     time.time())+f'_{classifier_name}', extension='.png'), bbox_inches='tight')
+    fig1.savefig(get_special_name(folder_name=f'statistics\\{classifier_name}', prefix=f'_{classifier_name}', extension='.png'), bbox_inches='tight')
 
 
 def predict(path, classifier):

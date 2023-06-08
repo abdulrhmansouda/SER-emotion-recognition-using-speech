@@ -1,6 +1,7 @@
 import pickle
 import sys
 import os
+import numpy as np
 
 class CatBoostFeatureSelector:
     def get_selector():
@@ -35,7 +36,8 @@ class CatBoostFeatureSelector:
 
     def get_boolean_array_for_most_important_feature(ratio=0.1):
         feature_importance = CatBoostFeatureSelector.get_feature_importance()
-        return feature_importance >= max(feature_importance)*ratio
+        # return feature_importance >= max(feature_importance)*ratio
+        return feature_importance > np.average(feature_importance)*1.5
     
     def filter_features(X):
         import numpy as np

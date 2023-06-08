@@ -14,8 +14,6 @@ class GradientBoostingClassifier:
         pass
 
     def get_classifier():
-        print('hi')
-        return pickle.load(open(classifierHelper.get_special_name('pickled', 'GradientBoostingClassifier', '.pickle'), "rb"))
         try:
             clf = pickle.load(open(classifierHelper.get_special_name('pickled', 'GradientBoostingClassifier', '.pickle'), "rb"))
         except:
@@ -30,7 +28,6 @@ class GradientBoostingClassifier:
             clf.fit(X=X_train, y=y_train)
             pickle.dump(clf, open(classifierHelper.get_special_name('pickled', 'GradientBoostingClassifier', '.pickle'), "wb"))
         return clf
-
 
     def get_classifier_through_randomized_search_cv():
         from sklearn.model_selection import RandomizedSearchCV
@@ -48,8 +45,12 @@ class GradientBoostingClassifier:
                 'learning_rate': [0.01, 0.05, 0.1, 0.3, 0.5, 1.0],
                 'n_estimators': [40, 50, 70, 100, 200, 500],
                 'max_depth': [3, 5, 7, 9],
-                'min_samples_split': [0.2, 0.5, 0.7, 2, 5, 10, 20],
-                'min_samples_leaf': [0.2, 0.5, 1, 2, 4],
+                'min_samples_split': [
+                    # 0.2, 0.5, 0.7, 
+                                      2, 5, 10, 20],
+                'min_samples_leaf': [
+                    # 0.2, 0.5,
+                                      1, 2, 4],
                 'subsample': [0.3, 0.5, 0.7, 0.9, 1.0],
                 'max_features': ['sqrt', 'log2', None],
                 # 'loss': ['deviance', 'exponential'],

@@ -80,14 +80,19 @@ class RandomForestClassifier:
 
 
     def predict(path):
-        clf = RandomForestClassifier.get_classifier_through_randomized_search_cv()
-        # clf = RandomForestClassifier.get_classifier()
+        if para.with_random_search:
+            clf = RandomForestClassifier.get_classifier_through_randomized_search_cv()
+        else:
+            clf = RandomForestClassifier.get_classifier()
         return classifierHelper.predict(path, clf)
 
 
 if __name__ == '__main__':
-    # clf = RandomForestClassifier.get_classifier()
-    clf = RandomForestClassifier.get_classifier_through_randomized_search_cv()
+    if para.with_random_search:
+        clf = RandomForestClassifier.get_classifier_through_randomized_search_cv()
+    else:
+        clf = RandomForestClassifier.get_classifier()
+
 
     feature_emotion_X_Y_array = extract_feature_emotion_X_y_array()
     X = feature_emotion_X_Y_array['X']
@@ -96,5 +101,8 @@ if __name__ == '__main__':
         X, y, test_size=para.test_size, random_state=0)
 
     y_prediction = clf.predict(X_test)
-    classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_RandomForestClassifier',
-                            title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_RandomForestClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    if para.with_random_search:
+        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_RandomForestClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_RandomForestClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    else:
+        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomForestClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - RandomForestClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}")
+

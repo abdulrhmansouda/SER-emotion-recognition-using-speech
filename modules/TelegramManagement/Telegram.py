@@ -15,8 +15,6 @@ class Telegram:
         BOT_TOKEN = config('BOT_TOKEN')
         self.bot = telebot.TeleBot(BOT_TOKEN)
         # Load the model and print "ready" message
-        # self.rec = get_classifier()
-        # self.bot.send_message('hi')
         self.rec = para.classifiers[0].get_classifier_through_randomized_search_cv()
 
 
@@ -27,21 +25,16 @@ class Telegram:
         self.bot.reply_to(message, f"Classifier Name: {para.classifiers[0].__name__}")
 
         telegramHelper.getWavDetail(destination_file_path)
-        # emotion, score = predict(destination_file_path)
-        emotion = para.classifiers[0].predict(destination_file_path)
-        # score = self.rec.test_score()
-        score = self.rec.best_score_
-        # print(emotion)
-        # return
-        # score = 10 # , rec.test_score()
-        # rec.predict_proba()
-        # Rename the file based on the predicted emotion and the user's username (if available)
 
-        # new_filename = f"{message.from_user.username}_{emotion}_{destination_file_path}" if message.from_user.username else f"{emotion}_{destination_file_path}"
-        # os.rename(destination_file_path,os.path.join('temp', new_filename))
+        emotion = para.classifiers[0].predict(destination_file_path)
+
+        if para.with_random_search:
+            score = self.rec.best_score_
 
         # Reply to the user with the predicted emotion and score
-        self.bot.reply_to(message, f"The score is: {score}")
+        if para.with_random_search:
+            self.bot.reply_to(message, f"The score is: {score}")
+
         self.bot.reply_to(message, f"The emotion is: {emotion}")
 
         # Respond with an emoji based on the predicted emotion
@@ -91,7 +84,7 @@ class Telegram:
             telegramHelper.scale_amplitude(destination_after_reduce_noise_file_path,destination_after_reduce_noise_file_path,0.3)
 
 
-            self.process_voice_message(message, destination_file_path)
+            # self.process_voice_message(message, destination_file_path)
             self.process_voice_message(message, destination_after_reduce_noise_file_path)
 
 
@@ -117,7 +110,7 @@ class Telegram:
             telegramHelper.scale_amplitude(received_file_path,received_file_path,0.3)
             telegramHelper.scale_amplitude(destination_after_reduce_noise_file_path,destination_after_reduce_noise_file_path,0.3)
 
-            self.process_voice_message(message, received_file_path)
+            # self.process_voice_message(message, received_file_path)
             self.process_voice_message(message, destination_after_reduce_noise_file_path)
 
 

@@ -72,7 +72,8 @@ def extract_feature_emotion_X_y_array(filter=True):
         sys.path.insert(0, os.getcwd()+"\modules\FeatureSelectionManagement")
         from  modules.FeatureSelectionManagement.CatBoostFeatureSelector import CatBoostFeatureSelector 
         print(f"The Shape of feature before Filtering :{result.shape}")
-        result = CatBoostFeatureSelector.filter_features(result)
+        if para.with_feature_selection:
+            result = CatBoostFeatureSelector.filter_features(result)
         print(f"The Shape of feature after Filtering :{result.shape}")
 
     return {

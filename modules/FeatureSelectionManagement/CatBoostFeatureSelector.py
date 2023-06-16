@@ -21,14 +21,14 @@ class CatBoostFeatureSelector:
 
             # Create a CatBoostClassifier model
             clf = cb.CatBoostClassifier(
-                                        depth=5,
+                                        depth=4,
                                         )
             # Fit the model to the data
             clf.fit(X, y)
             pickle.dump(clf, open(classifierHelper.get_special_name(
                 'pickled', 'CatBoostFeatureSelector', '.pickle'), "wb"))
         return clf
-    
+     
     def get_feature_importance():
         model = CatBoostFeatureSelector.get_selector()
         feature_importance = model.get_feature_importance()
@@ -38,6 +38,7 @@ class CatBoostFeatureSelector:
         feature_importance = CatBoostFeatureSelector.get_feature_importance()
         # return feature_importance >= max(feature_importance)*ratio
         return feature_importance > np.average(feature_importance)*1.5
+        # return feature_importance >= np.min(feature_importance)
     
     def filter_features(X):
         import numpy as np

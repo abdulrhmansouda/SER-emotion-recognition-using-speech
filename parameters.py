@@ -35,9 +35,9 @@ one_hot_encode = pd.get_dummies(emotions)
 
 features = [
     'MFCC',
-    'SSC' ,
+    # 'SSC' ,
     # 'Chroma', 
-    'MelSpectrogram',
+    # 'MelSpectrogram',
     # 'Contrast',
     # 'Tonnetz',
     # 'F0',
@@ -48,6 +48,9 @@ datasets = [
     # 'emo-db',
     'tess_ravdess',
 ]
+
+with_feature_selection = False
+with_random_search = False 
 
 test_size = 0.2
 

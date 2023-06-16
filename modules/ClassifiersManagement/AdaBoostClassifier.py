@@ -36,7 +36,6 @@ class AdaBoostClassifier:
 
 
     def get_classifier_through_randomized_search_cv():
-        from sklearn.neural_network import MLPClassifier
         from sklearn.model_selection import RandomizedSearchCV
 
         try:
@@ -76,13 +75,18 @@ class AdaBoostClassifier:
 
 
     def predict(path):
-        clf = AdaBoostClassifier.get_classifier_through_randomized_search_cv()
-        # clf = AdaBoostClassifier.get_classifier()
+        if para.with_random_search:
+            clf = AdaBoostClassifier.get_classifier_through_randomized_search_cv()
+        else:
+            clf = AdaBoostClassifier.get_classifier()
         return classifierHelper.predict(path, clf)
 
 if __name__ == '__main__':
-    # clf = AdaBoostClassifier.get_classifier()
-    clf = AdaBoostClassifier.get_classifier_through_randomized_search_cv()
+    if para.with_random_search:
+        clf = AdaBoostClassifier.get_classifier_through_randomized_search_cv()
+    else:
+        clf = AdaBoostClassifier.get_classifier()
+
 
     feature_emotion_X_Y_array = extract_feature_emotion_X_y_array()
     X = feature_emotion_X_Y_array['X']
@@ -91,5 +95,7 @@ if __name__ == '__main__':
         X, y, test_size=para.test_size, random_state=0)
 
     y_prediction = clf.predict(X_test)
-    classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_AdaBoostClassifier',
-                            title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_AdaBoostClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    if para.with_random_search:
+        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_AdaBoostClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_AdaBoostClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    else:
+        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='AdaBoostClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - AdaBoostClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}")

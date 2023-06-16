@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 import sys
 import os
 sys.path.insert(0, os.getcwd())
+
 import modules.ClassifiersManagement.helper as classifierHelper
 import parameters as para
 sys.path.insert(0, os.getcwd()+"\modules\FeaturesManagement")
@@ -78,14 +79,20 @@ class SVCClassifier:
 
 
     def predict(path):
-        clf = SVCClassifier.get_classifier_through_randomized_search_cv()
-        # clf = SVCClassifier.get_classifier()
+        if para.with_random_search:
+            clf = SVCClassifier.get_classifier_through_randomized_search_cv()
+        else:
+            clf = SVCClassifier.get_classifier()
+
         return classifierHelper.predict(path, clf)
 
 
 if __name__ == '__main__':
-    # clf = SVCClassifier.get_classifier()
-    clf = SVCClassifier.get_classifier_through_randomized_search_cv()
+    if para.with_random_search:
+        clf = SVCClassifier.get_classifier_through_randomized_search_cv()
+    else:
+        clf = SVCClassifier.get_classifier()
+
 
     feature_emotion_X_Y_array = extract_feature_emotion_X_y_array()
     X = feature_emotion_X_Y_array['X']
@@ -94,5 +101,7 @@ if __name__ == '__main__':
         X, y, test_size=para.test_size, random_state=0)
 
     y_prediction = clf.predict(X_test)
-    classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_SVCClassifier',
-                            title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_SVCClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    if para.with_random_search:
+        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_SVCClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_SVCClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    else:
+        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='SVCClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - SVCClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}")

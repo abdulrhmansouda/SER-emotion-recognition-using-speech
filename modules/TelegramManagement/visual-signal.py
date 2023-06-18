@@ -12,7 +12,9 @@ import IPython.display as ipd
 # path = 'temp\\1685907474_7141767664.wav'
 # path = 'temp\\1685908351_9901456388.wav'
 # path = 'temp\\1685908843_6688493281.wav'
+
 path = 'temp\\1685908843_after_reduce_noise_1631162905.wav'
+path = 'dataset/TESS/angry\OAF_back_angry.wav'
 x, sr = librosa.load(path)
 # x=x*0.2
 # print(x.shape)

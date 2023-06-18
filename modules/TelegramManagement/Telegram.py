@@ -15,7 +15,10 @@ class Telegram:
         BOT_TOKEN = config('BOT_TOKEN')
         self.bot = telebot.TeleBot(BOT_TOKEN)
         # Load the model and print "ready" message
-        self.rec = para.classifiers[0].get_classifier_through_randomized_search_cv()
+        if para.with_random_search:
+            self.rec = para.classifiers[0].get_classifier_through_randomized_search_cv()
+        else:
+            self.rec = para.classifiers[0].get_classifier()
 
 
     # Function to process voice messages

@@ -40,7 +40,7 @@ class AdaBoostClassifier:
 
         try:
             random_search = pickle.load(open(classifierHelper.get_special_name(
-                'pickled', 'RandomizeSearch_AdaBoostClassifier', '.pickle'), "rb"))
+                'pickled', 'AdaBoostClassifier', '.pickle'), "rb"))
         except:
             feature_emotion_X_Y_array = extract_feature_emotion_X_y_array()
             X = feature_emotion_X_Y_array['X']
@@ -66,7 +66,7 @@ class AdaBoostClassifier:
 
             # Fit the grid search object to the data
             random_search.fit(X=X_train, y=y_train)
-            pickle.dump(random_search, open(classifierHelper.get_special_name('pickled', 'RandomizeSearch_AdaBoostClassifier', '.pickle'), "wb"))
+            pickle.dump(random_search, open(classifierHelper.get_special_name('pickled', 'AdaBoostClassifier', '.pickle'), "wb"))
         # Print the best parameters and best score
         print("Best parameters: ", random_search.best_params_)
         print("Best score: ", random_search.best_score_)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
         X, y, test_size=para.test_size, random_state=0)
 
     y_prediction = clf.predict(X_test)
-    if para.with_random_search:
-        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_AdaBoostClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_AdaBoostClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
-    else:
-        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='AdaBoostClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - AdaBoostClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}")
+    # if para.with_random_search:
+    #     classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='AdaBoostClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - AdaBoostClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    # else:
+    classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='AdaBoostClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - AdaBoostClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}")

@@ -33,7 +33,7 @@ class GradientBoostingClassifier:
         from sklearn.model_selection import RandomizedSearchCV
 
         try:
-            random_search = pickle.load(open(classifierHelper.get_special_name('pickled', 'RandomizeSearch_GradientBoostingClassifier', '.pickle'), "rb"))
+            random_search = pickle.load(open(classifierHelper.get_special_name('pickled', 'GradientBoostingClassifier', '.pickle'), "rb"))
         except:
             feature_emotion_X_Y_array = extract_feature_emotion_X_y_array()
             X = feature_emotion_X_Y_array['X']
@@ -66,7 +66,7 @@ class GradientBoostingClassifier:
 
             # Fit the grid search object to the data
             random_search.fit(X=X_train, y=y_train)
-            pickle.dump(random_search, open(classifierHelper.get_special_name('pickled', 'RandomizeSearch_GradientBoostingClassifier', '.pickle'), "wb"))
+            pickle.dump(random_search, open(classifierHelper.get_special_name('pickled', 'GradientBoostingClassifier', '.pickle'), "wb"))
         # Print the best parameters and best score
         print("Best parameters: ", random_search.best_params_)
         print("Best score: ", random_search.best_score_)
@@ -94,10 +94,13 @@ if __name__ == '__main__':
     y = feature_emotion_X_Y_array['y']
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=para.test_size, random_state=0)
+    
+    # X_test = X
+    # y_test = y
 
     y_prediction = clf.predict(X_test)
-    if para.with_random_search:
-        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='RandomizeSearch_GradientBoostingClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_GradientBoostingClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
-    else:
-        classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='GradientBoostingClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - GradientBoostingClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}")
+    # if para.with_random_search:
+    #     classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='GradientBoostingClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - GradientBoostingClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
+    # else:
+    classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name='GradientBoostingClassifier',title=f"Accuracy: {clf.score(X_test, y_test)} - GradientBoostingClassifier\n{classifierHelper.get_special_name(folder_name='',prefix='')}")
     

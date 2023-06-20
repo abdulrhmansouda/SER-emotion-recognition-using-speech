@@ -62,7 +62,7 @@ def test(para_datasets, Classifier, test_size=1, with_show=True):
     #     classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name=f'{Classifier.__name__}',
     #                                       title=f"Accuracy: {clf.score(X_test, y_test)} - RandomizeSearch_{Classifier.__name__}\n{classifierHelper.get_special_name(folder_name='',prefix='')}\n{clf.best_params_}")
     # else:
-    classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name=f'{Classifier.__name__}',title=f"Accuracy: {clf.score(X_test, y_test)} - {Classifier.__name__}\n{classifierHelper.get_special_name(folder_name='',prefix='')}", normalize=None, with_show=with_show)
+    classifierHelper.confusion_matrix(y_test=y_test, y_prediction=y_prediction, classifier_name=f'{Classifier.__name__}',title=f"Accuracy: {clf.score(X_test, y_test)} - {Classifier.__name__}\n{classifierHelper.get_special_name(folder_name='',prefix='')}", normalize='true', with_show=with_show)
 
     para.datasets, para_datasets = swap(para.datasets, para_datasets)
 
@@ -94,41 +94,41 @@ if __name__ == '__main__':
         'F0',
     ]
     selection_ratios = [
-        0.1,
-        0.2,
-        # 0.3,
-        # 0.4,
-        # 0.5,
-        # 0.6,
-        # 0.7,
-        # 0.8,
-        # 0.9,
-        # 1
+        # 0.1,
+        # 0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1
     ]
     with_random_searchs = [
         True,
         False
     ]
-    for Classifier in classifiers:
-        for with_random_search in with_random_searchs:
-            for selection_ratio in selection_ratios:
+    for selection_ratio in selection_ratios:
+        for Classifier in classifiers:
+            for with_random_search in with_random_searchs:
                 for Feature in features:
                     para.with_random_search = with_random_search
                     para.selection_ratio = selection_ratio
                     para.features = [Feature]
-                    test([
-                        # 'custom_arabic',
-                        # 'TESS',
-                        # 'emo-db',
-                        'tess_ravdess',
-                        # 'AudioWAV',
-                    ], Classifier=Classifier, test_size=para.test_size, with_show=False)
+                    # test([
+                    #     # 'custom_arabic',
+                    #     # 'TESS',
+                    #     # 'emo-db',
+                    #     'tess_ravdess',
+                    #     # 'AudioWAV',
+                    # ], Classifier=Classifier, test_size=para.test_size, with_show=False)
 
                     test([
-                        'private_dataset',
+                        # 'private_dataset',
                         # 'custom_arabic',
                         # 'TESS',
-                        # 'emo-db',
+                        'emo-db',
                         # 'tess_ravdess',
                         # 'AudioWAV',
                     ], Classifier=Classifier, with_show=False)

@@ -68,6 +68,9 @@ def extract_feature_emotion_X_y_array(filter=True):
         result.append(X)
 
     result = np.concatenate(result,axis=1)
+
+    result[np.isnan(result)] = 0
+    result[np.isinf(result)] = 0
     if filter == True:
         sys.path.insert(0, os.getcwd()+"\modules\FeatureSelectionManagement")
         from  modules.FeatureSelectionManagement.CatBoostFeatureSelector import CatBoostFeatureSelector 

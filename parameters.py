@@ -9,8 +9,8 @@ from modules.ClassifiersManagement.SVCClassifier import SVCClassifier
 
 
 classifiers = [
-# AdaBoostClassifier,
-BaggingClassifier,
+AdaBoostClassifier,
+# BaggingClassifier,
 # GradientBoostingClassifier,
 # KNeighborsClassifier,
 # MLPClassifier,
@@ -35,12 +35,12 @@ one_hot_encode = pd.get_dummies(emotions)
 
 features = [
     # 'MFCC',
-    # 'SSC' ,
+    'SSC' ,
     # 'Chroma', 
     # 'MelSpectrogram',
     # 'Contrast',
     # 'Tonnetz',
-    'F0',
+    # 'F0',
 ]
 
 datasets = [
